@@ -1,5 +1,5 @@
 use crate::lexer::token::Token;
-use crate::parser::ast::*;
+use crate::parser_manual::ast::*;
 use std::iter::Peekable;
 use std::vec::IntoIter;
 
@@ -174,5 +174,14 @@ impl Parser {
         } else {
             Err(format!("Esperado token {:?}, mas chegou ao fim da entrada", expected))
         }
+    }
+}
+
+pub fn parse(tokens: Vec<String>) -> Result<String, String> {
+    if tokens.is_empty() {
+        Err("No tokens to parse".to_string())
+    } else {
+        // Para demonstração, simplesmente junta os tokens em uma String representando a AST
+        Ok(format!("AST (Manual): {}", tokens.join(" ")))
     }
 }

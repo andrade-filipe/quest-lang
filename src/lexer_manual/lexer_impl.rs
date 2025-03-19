@@ -1,4 +1,4 @@
-use crate::lexer::token::Token;
+use crate::lexer_manual::token::Token;
 
 pub struct Lexer {
     input: Vec<char>,
@@ -153,4 +153,8 @@ impl Lexer {
             None
         }
     }
+}
+
+pub fn lex(input: &str) -> Vec<String> {
+    input.split_whitespace().map(|s| s.to_string()).collect()
 }

@@ -97,3 +97,11 @@ pub fn parser() -> impl Parser<Token, Vec<Statement>, Error = Simple<Token>> + C
     // Parser final: zero ou mais statements
     statement.repeated()
 }
+
+pub fn parse(tokens: Vec<String>) -> Result<String, Vec<String>> {
+    if tokens.is_empty() {
+        Err(vec!["No tokens to parse".to_string()])
+    } else {
+        Ok(format!("AST (Chumsky): {}", tokens.join(" ")))
+    }
+}

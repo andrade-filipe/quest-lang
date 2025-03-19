@@ -25,3 +25,11 @@ impl<'a> Iterator for Lexer<'a> {
     }
 }
 
+pub fn lex(input: &str) -> Vec<String> {
+    let mut tokens = Vec::new();
+    let mut lexer = Token::lexer(input);
+    while let Some(token) = lexer.next() {
+        tokens.push(format!("{:?}", token));
+    }
+    tokens
+}
