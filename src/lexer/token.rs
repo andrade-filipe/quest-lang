@@ -1,6 +1,15 @@
 use logos::Logos;
+use std::hash::Hash;
 
-#[derive(Logos, Default, Debug, PartialEq)]
+#[derive(
+    Logos,     // Para o Lexer
+    Default,   // Se estiver usando #[default] no token de erro
+    Debug,     // Para imprimir
+    PartialEq, // Necessário para comparações
+    Eq,        // Necessário se for usar Hash
+    Clone,     // Necessário se for clonar tokens
+    Hash       // Necessário para certos combinadores do Chumsky
+)]
 pub enum Token {
     // Comandos de Movimento
     #[token("move_up")]
@@ -57,6 +66,8 @@ pub enum Token {
     LBrace,
     #[token("}")]
     RBrace,
+    #[token(";")]
+    Semicolon,
 
     // Literais e Identificadores
     #[regex("[0-9]+", |lex| lex.slice().parse::<i64>().unwrap())]
