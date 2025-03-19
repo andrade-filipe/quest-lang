@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 logos = "0.15"
 chumsky = "0.9"
+nom = "8.0.0"
