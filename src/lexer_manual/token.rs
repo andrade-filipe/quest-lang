@@ -33,6 +33,7 @@ pub enum Token {
     RParen,
     LBrace,
     RBrace,
+    Semicolon,
 
     // Literais e Identificadores
     Identifier(String),

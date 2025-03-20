@@ -1,4 +1,4 @@
-use crate::lexer::token::Token;
+use crate::lexer_manual::token::Token;
 use crate::parser_manual::ast::*;
 use std::iter::Peekable;
 use std::vec::IntoIter;

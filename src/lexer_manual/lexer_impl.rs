@@ -155,6 +155,28 @@ impl Lexer {
     }
 }
 
-pub fn lex(input: &str) -> Vec<String> {
-    input.split_whitespace().map(|s| s.to_string()).collect()
+pub fn lex(input: &str) -> Vec<Token> {
+    // Exemplo simples: para cada palavra, mapeia para um token se possível.
+    input.split_whitespace().map(|s| {
+        match s {
+            "if"    => Token::If,
+            "else"  => Token::Else,
+            "while" => Token::While,
+            "for"   => Token::For,
+            "move_up"    => Token::MoveUp,
+            "move_down"  => Token::MoveDown,
+            "move_left"  => Token::MoveLeft,
+            "move_right" => Token::MoveRight,
+            "jump"       => Token::Jump,
+            "attack"     => Token::Attack,
+            "defend"     => Token::Defend,
+            // Se for um número, por exemplo
+            _ if s.chars().all(|c| c.is_digit(10)) => {
+                // Aqui, assumindo que o parse não falha
+                Token::Number(s.parse::<i64>().unwrap())
+            }
+            // Para identificadores (hero, enemy, etc.) ou outros casos
+            _ => Token::Identifier(s.to_string()),
+        }
+    }).collect()
 }

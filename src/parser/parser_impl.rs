@@ -98,10 +98,10 @@ pub fn parser() -> impl Parser<Token, Vec<Statement>, Error = Simple<Token>> + C
     statement.repeated()
 }
 
-pub fn parse(tokens: Vec<String>) -> Result<String, Vec<String>> {
-    if tokens.is_empty() {
-        Err(vec!["No tokens to parse".to_string()])
-    } else {
-        Ok(format!("AST (Chumsky): {}", tokens.join(" ")))
+pub fn parse_tokens(tokens: Vec<Token>) -> Result<Vec<Statement>, Vec<String>> {
+    let p = parser();
+    match p.parse(tokens) {
+        Ok(ast) => Ok(ast),
+        Err(errors) => Err(errors.into_iter().map(|err| format!("{:#?}", err)).collect()),
     }
 }

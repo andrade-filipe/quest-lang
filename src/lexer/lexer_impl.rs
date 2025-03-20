@@ -18,18 +18,15 @@ impl<'a> Iterator for Lexer<'a> {
     type Item = Token;
 
     fn next(&mut self) -> Option<Self::Item> {
-        self.inner.next().map(|res| match res {
-            Ok(token) => token,
-            Err(_) => Token::Error,
+        self.inner.next().map(|result| {
+            match result {
+                Ok(token) => token,
+                Err(_) => Token::Error,
+            }
         })
     }
 }
 
-pub fn lex(input: &str) -> Vec<String> {
-    let mut tokens = Vec::new();
-    let mut lexer = Token::lexer(input);
-    while let Some(token) = lexer.next() {
-        tokens.push(format!("{:?}", token));
-    }
-    tokens
+pub fn lex(input: &str) -> Vec<Token> {
+    Lexer::new(input).collect()
 }
